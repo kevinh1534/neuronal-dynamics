@@ -10,42 +10,45 @@ int main(){
 
 srand (static_cast <unsigned> (time(0)));
 
-float R = 
-float C = //typical value of capacitance
+//initializing variables
+	float R = 
+	float C = //typical value of capacitance
 
-float U_rest .07;= //typical value of u_rest
-float U_thresh = //typical threshold value
+	float U_rest .07;= //typical value of u_rest
+	float U_thresh = //typical threshold value
 
-float t_max = //num
-float t_incr_max = //limit to time increment
+	float t_max = //num
+	float t_incr_max = //limit to time increment
 
-float Q_min = //min pulse mag
-float Q_max = //max pulse mag 
+	float Q_min = //min pulse mag
+	float Q_max = //max pulse mag 
 
-float t_spike = .001;//time takes for a spike to happen
+	float t_spike = .001;//time takes for a spike to happen
 
-//reversal potentials of ion channels
-//E_x in V
-float E_Na = .055;
-float E_K = -.077;
-float E_L = -.065;
+	//reversal potentials of ion channels
+	//E_x in V
+	float E_Na = .055;
+	float E_K = -.077;
+	float E_L = -.065;
 
-//conductance of ion channels
-//g_x in mS/cm^2
-float g_Na = 40.0;
-float g_K = 35;
-float g_L = .3;
+	//conductance of ion channels
+	//g_x in mS/cm^2
+	float g_Na = 40.0;
+	float g_K = 35;
+	float g_L = .3;
 
-vector <float> pulse_mags;
-vector <float> pulse_times;
-vector <float> spike_times;
+//initializing vectors
+	vector <float> pulse_mags;
+	vector <float> pulse_times;
+	vector <float> spike_times;
 
+//starting t at a small, nonzero time
 float t = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/t_incr)); //start time is nonzero
 
 while (t < t_max){
 	
-	float Q = Q_min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/Q_max));
 	//create a pulse of magnitude Q
+	float Q = Q_min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/Q_max));
 	
 	pulse_mags.push_back(Q/C);//append value Q/C to pulse magnitude vector
 	pulse_times.push_back(t); //appending time associated with pulse
@@ -54,9 +57,11 @@ while (t < t_max){
 		//update pulse magnitudes according to current time
 		pulse_mags[i]= = pulse_mags[i]*e^(-(t-pulse_times[i])/(R*C))
 	}
-		
+	
+	//Add all pulse magnitudes up to get total energy
 	float U = pulse_mags.accumulate(pulse_mags.begin(),pulse_mags.end(),0.0);
 	
+	//if U is greater than the spike threshold, record the spike and reset U to U rest
 	if(U > U_thresh){
 		//append t_next to dynamic spike array 
 		spike_times.push_back(t);

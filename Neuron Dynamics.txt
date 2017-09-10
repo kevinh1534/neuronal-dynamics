@@ -1,0 +1,120 @@
+#include<iostream>
+#include<cstdlib>
+#include<vector>
+using namespace std;
+
+//this code models neuron synapse firing based on a RC circuit model of the neuron
+//the result of this code is a list of times that spikes occur
+
+int main(){
+
+srand (static_cast <unsigned> (time(0)));
+
+float R = 
+float C = //typical value of capacitance
+
+float U_rest .07;= //typical value of u_rest
+float U_thresh = //typical threshold value
+
+float t_max = //num
+float t_incr_max = //limit to time increment
+
+float Q_min = //min pulse mag
+float Q_max = //max pulse mag 
+
+float t_spike = .001;//time takes for a spike to happen
+
+//reversal potentials of ion channels
+//E_x in V
+float E_Na = .055;
+float E_K = -.077;
+float E_L = -.065;
+
+//conductance of ion channels
+//g_x in mS/cm^2
+float g_Na = 40.0;
+float g_K = 35;
+float g_L = .3;
+
+vector <float> pulse_mags;
+vector <float> pulse_times;
+vector <float> spike_times;
+
+float t = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/t_incr)); //start time is nonzero
+
+while (t < t_max){
+	
+	float Q = Q_min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/Q_max));
+	//create a pulse of magnitude Q
+	
+	pulse_mags.push_back(Q/C);//append value Q/C to pulse magnitude vector
+	pulse_times.push_back(t); //appending time associated with pulse
+	
+	for(i=0; i<pulse_mags.size();i++){
+		//update pulse magnitudes according to current time
+		pulse_mags[i]= = pulse_mags[i]*e^(-(t-pulse_times[i])/(R*C))
+	}
+	
+	//iterative solution for exponential dU/dt
+	//can plug in for linear version in above code
+	/*dt=.0001;
+	for(i=0;i<pulse_mags;i++){
+		U = pulse_mags[i];
+		for(i=t; t<t+t_incr;i+=dt){
+			dU_dt = (-(U-U_rest) + e^(U-U_rest)+Q)/C;
+			U = U + dU_dt*dt;
+		}
+		pulse_mags[i] = U;
+	}
+	*/
+	
+	float U = pulse_mags.accumulate(pulse_mags.begin(),pulse_mags.end(),0.0);
+	
+	if(U > U_thresh){
+		//append t_next to dynamic spike array 
+		spike_times.push_back(t);
+		U = U_rest;
+		t += t_spike;
+		pulse_mags.clear();
+		pulse_times.clear();
+		
+	}
+	
+	float t = t + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/t_incr));
+	//increment time by an amount
+	
+}
+
+return 0
+}
+
+//following equations are solutions to the form dxdt = (x-x_0)/tau_x
+
+
+
+
+
+/* Hodgkin-Huxley model
+	dt=.0001;
+	for(i=0;i<pulse_mags;i++){
+		U = pulse_mags[i];
+		n = .02*(U-25)/(1-e^(-(U-25)/9);
+		m =.0182*(U+35)/(1-e^(-(U+35)/9);
+		h = .25*e^(-(u+90)/12);
+		for(i=t; t<t+t_incr;i+=dt){
+			dU_dt = (g_Na*m^3*h(u-E_Na) + g_K*n^4(u-E_k) + g_L*(u-E_L) + Q)/C
+			U = U + dU_dt*dt;
+		}
+		pulse_mags[i] = U;
+	}
+*/
+
+
+
+
+
+
+
+
+
+

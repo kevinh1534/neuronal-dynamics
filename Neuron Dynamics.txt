@@ -88,12 +88,6 @@ while (t < t_max){
 return 0
 }
 
-//following equations are solutions to the form dxdt = (x-x_0)/tau_x
-
-
-
-
-
 /* Hodgkin-Huxley model
 	dt=.0001;
 	for(i=0;i<pulse_mags;i++){

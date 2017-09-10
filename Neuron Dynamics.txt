@@ -3,7 +3,7 @@
 #include<vector>
 using namespace std;
 
-//this code models neuron synapse firing based on a RC circuit model of the neuron
+// code models neuron synapse firing based on a RC circuit model of the neuron
 //the result of this code is a list of times that spikes occur
 
 int main(){

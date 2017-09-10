@@ -54,20 +54,7 @@ while (t < t_max){
 		//update pulse magnitudes according to current time
 		pulse_mags[i]= = pulse_mags[i]*e^(-(t-pulse_times[i])/(R*C))
 	}
-	
-	//iterative solution for exponential dU/dt
-	//can plug in for linear version in above code
-	/*dt=.0001;
-	for(i=0;i<pulse_mags;i++){
-		U = pulse_mags[i];
-		for(i=t; t<t+t_incr;i+=dt){
-			dU_dt = (-(U-U_rest) + e^(U-U_rest)+Q)/C;
-			U = U + dU_dt*dt;
-		}
-		pulse_mags[i] = U;
-	}
-	*/
-	
+		
 	float U = pulse_mags.accumulate(pulse_mags.begin(),pulse_mags.end(),0.0);
 	
 	if(U > U_thresh){
@@ -84,7 +71,7 @@ while (t < t_max){
 	//increment time by an amount
 	
 }
-
+printf(spike_times);
 return 0
 }
 
@@ -103,8 +90,17 @@ return 0
 	}
 */
 
-
-
+//iterative solution for exponential dU/dt
+/*dt=.0001;
+	for(i=0;i<pulse_mags;i++){
+		U = pulse_mags[i];
+		for(i=t; t<t+t_incr;i+=dt){
+			dU_dt = (-(U-U_rest) + e^(U-U_rest)+Q)/C;
+			U = U + dU_dt*dt;
+		}
+		pulse_mags[i] = U;
+	}
+*/
 
 
 
